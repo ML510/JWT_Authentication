@@ -32,4 +32,17 @@ public class JWTService {
                 .signWith(secretKey)
                 .compact();
     }
+
+    public String getUserName(String token){
+        try {
+            return Jwts
+                    .parser()
+                    .verifyWith(secretKey).build()
+                    .parseSignedClaims(token)
+                    .getPayload()
+                    .getSubject();
+        } catch (Exception e) {
+            return "Invalid Token";
+        }
+    }
 }

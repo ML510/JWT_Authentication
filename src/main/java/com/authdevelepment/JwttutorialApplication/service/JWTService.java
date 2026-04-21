@@ -1,11 +1,13 @@
 package com.authdevelepment.JwttutorialApplication.service;
 
+import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
+import java.util.Date;
 
 @Service
 public class JWTService {
@@ -20,5 +22,14 @@ public class JWTService {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public String getJWTToken(){
+        return Jwts.builder()
+                .subject("mahesh")
+                .issuedAt(new Date(System.currentTimeMillis()))
+                .expiration(new Date(System.currentTimeMillis()+1000*60*15))
+                .signWith(secretKey)
+                .compact();
     }
 }

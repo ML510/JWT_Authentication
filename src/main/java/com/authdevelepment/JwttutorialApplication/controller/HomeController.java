@@ -2,7 +2,9 @@ package com.authdevelepment.JwttutorialApplication.controller;
 
 import com.authdevelepment.JwttutorialApplication.service.JWTService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -13,6 +15,11 @@ public class HomeController {
 
     @PostMapping("/login")
     public String login(){
-        return "User Login";
+        return jwtService.getJWTToken();
+    }
+
+    @GetMapping("/username")
+    public String getUserName(@RequestParam String token){
+        return jwtService.getUserName(token);
     }
 }
